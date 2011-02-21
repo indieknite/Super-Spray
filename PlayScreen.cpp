@@ -7,7 +7,7 @@
  *
  */
 
-#include "GLUT/glut.h"
+//#include "GLUT/glut.h"	// mac OS X
 #include "Target.h"
 
 #define WIDTH		(double)glutGet(GLUT_SCREEN_WIDTH)
