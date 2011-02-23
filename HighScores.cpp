@@ -3,8 +3,6 @@
  *  LaserSpray
  */
 
-//#include "stdafx.h"
-
 #include "highScores.h"
 
 // Initializes an empty ScoreItem with no name or score.

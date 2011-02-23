@@ -1,9 +1,8 @@
-//#include "stdafx.h"
 #include <iostream>
-//#include "cv.h"
-//#include "highgui.h"
-#include "OpenCV/cv.h"
-#include "OpenCV/highgui.h"
+#include "cv.h"					// windows
+#include "highgui.h"			// windows
+//#include "OpenCV/cv.h"		// mac OS X
+//#include "OpenCV/highgui.h"	// mac OS X
 #include "limits.h"
 
 // Initialize capturing live feed from the camera

@@ -3,10 +3,9 @@
  *  LaserSpray
  */
 
-//#include "stdafx.h"
 #include <iostream>
-//#include "gl/glut.h"
-#include "GLUT/glut.h"
+#include "gl/glut.h"		// windows
+//#include "GLUT/glut.h"	// mac OS X
 
 #include "graphics.h"
 #include "CalibrationScreen.h"
