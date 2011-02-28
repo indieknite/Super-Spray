@@ -60,7 +60,7 @@ void playDisplay()
 	reticle();
 	glPopMatrix();
 	
-	make_axis(); // Draws XY axis.
+	//make_axis(); // Draws XY axis.
 	
 	// Targets
 	target1.drawTarget();

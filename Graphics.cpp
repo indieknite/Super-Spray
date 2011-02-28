@@ -3,6 +3,7 @@
  *  LaserSpray
  */
 
+#include <iostream>
 //#include <gl/glut.h>	// windows
 #include <GLUT/glut.h>	// mac OS X
 
@@ -12,6 +13,7 @@
 #include "PlayScreen.h"
 #include "Target.h"
 #include "CS112.h"
+#include "FindRed.h"
 
 // gluLookAt values
 #define EYE				Vec3(0, 0, 5)
@@ -27,6 +29,11 @@
 #define WIDTH		(double)glutGet(GLUT_SCREEN_WIDTH)
 #define HEIGHT		(double)glutGet(GLUT_SCREEN_HEIGHT)
 
+// Define the current window state of the game.
+#define STATE_CALIBRATE		0
+#define STATE_START			1
+#define STATE_PLAY			2
+
 int* shot = new int[2];
 bool isShotFired = false;
 
@@ -39,14 +46,14 @@ void display()
 	
 	switch(gameState)
 	{
-		case 0:
+		case STATE_CALIBRATE:
 			gameState = calibrateDisplay();
 			glutPostRedisplay();
 			break;
-		case 1:
+		case STATE_START:
 			gameState = startDisplay();
 			break;
-		case 2:
+		case STATE_PLAY:
 			playDisplay();
 			break;
 	}
@@ -63,7 +70,11 @@ void key_press(unsigned char key, int x, int y)
 	{
 		case 's':
 		case 'S':
-			calculateCoor();
+			if(gameState == STATE_CALIBRATE)
+				shot = capturePoints();
+			else
+				calculateCoor();
+			
 			isShotFired = true;
 			checkAllHits();
 			glutPostRedisplay();

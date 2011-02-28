@@ -5,6 +5,7 @@
 
 //#include <gl/glut.h>	// windows
 #include <GLUT/glut.h>	// mac OS X
+#include <limits.h>
 
 #include "DrawText.h"
 #include "FindRed.h"
@@ -28,7 +29,7 @@ double xLeft = -1, xRight = -1, yUp = -1, yDown = -1;
 // Defines the points used to draw an arrow.
 void arrow()
 {
-	glColor4f(1.0, 1.0, 1.0, 1.0);
+	glColor4f(0.3, 0.3, 0.3, 1.0);
 	glBegin(GL_POLYGON);
 	glVertex3d(0.0, 50.0, 0.0);
 	glVertex3d(50.0, 0.0, 0.0);
@@ -77,7 +78,7 @@ short calibrateDisplay()
 	glPopMatrix();
 	
 	// Gets the value of the left corner.
-	if(xLeft == -1)
+	if(xLeft < 0)
 	{
 		moveArrow(1, 0, -WIDTH+55, 0, 90);
 		if(isShotFired)
@@ -86,7 +87,7 @@ short calibrateDisplay()
 		}
 	}
 	// The right corner.
-	else if(xRight == -1)
+	else if(xRight < 0)
 	{
 		moveArrow(1, 0, -55, 0, -90);
 		if(isShotFired)
@@ -95,7 +96,7 @@ short calibrateDisplay()
 		}
 	}
 	// The top corner.
-	else if(yUp == -1)
+	else if(yUp < 0)
 	{
 		moveArrow(0, 1, 0, -55, 0);
 		if(isShotFired)
@@ -104,7 +105,7 @@ short calibrateDisplay()
 		}
 	}
 	// The bottom corner.
-	else if(yDown == -1)
+	else if(yDown < 0)
 	{
 		moveArrow(0, 1, 0, -HEIGHT+55, 180);
 		if(isShotFired)
