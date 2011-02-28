@@ -28,7 +28,7 @@ void Target::drawTarget()
 	// Two * Pi
 	GLfloat twoPi = 2.0f * 3.14159f;
 	
-	glColor4f(color.x, color.y, color.z, alpha);
+	glColor4d(color.x, color.y, color.z, alpha);
 	glBegin(GL_TRIANGLE_FAN);
 	glVertex3f(0.0, 0.0, 0.0); // Origin
 	for(int i = 0; i <= sections; i++)

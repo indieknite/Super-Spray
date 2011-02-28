@@ -3,9 +3,8 @@
  *  LaserSpray
  */
 
-#include <iostream>
-#include "gl/glut.h"		// windows
-//#include "GLUT/glut.h"	// mac OS X
+//#include <gl/glut.h>	// windows
+#include <GLUT/glut.h>	// mac OS X
 
 #include "graphics.h"
 #include "CalibrationScreen.h"
@@ -29,26 +28,30 @@
 #define HEIGHT		(double)glutGet(GLUT_SCREEN_HEIGHT)
 
 int* shot = new int[2];
+bool isShotFired = false;
 
-short showDisplay = 0;
+short gameState = 0;
 
 // Display fuction used to redraw our graphics as our game runs.
 void display()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear frame buffer.
 	
-	switch(showDisplay)
+	switch(gameState)
 	{
 		case 0:
-			calibrateDisplay();
+			gameState = calibrateDisplay();
+			glutPostRedisplay();
 			break;
 		case 1:
-			startDisplay();
+			gameState = startDisplay();
 			break;
 		case 2:
 			playDisplay();
 			break;
 	}
+	
+	isShotFired = false;
 	
 	glFlush();
 	glutSwapBuffers();
@@ -60,9 +63,8 @@ void key_press(unsigned char key, int x, int y)
 	{
 		case 's':
 		case 'S':
-			shot = capturePoints();
-			shot[0] = (shot[0] - 320) * 3;
-			shot[1] = (-1) * (shot[1] - 240) * 4;
+			calculateCoor();
+			isShotFired = true;
 			checkAllHits();
 			glutPostRedisplay();
 			break;

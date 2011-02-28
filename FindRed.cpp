@@ -1,9 +1,9 @@
 #include <iostream>
-#include "cv.h"					// windows
-#include "highgui.h"			// windows
-//#include "OpenCV/cv.h"		// mac OS X
-//#include "OpenCV/highgui.h"	// mac OS X
-#include "limits.h"
+//#include <cv.h>			// windows
+//#include <highgui.h>		// windows
+#include <OpenCV/cv.h>		// mac OS X
+#include <OpenCV/highgui.h>	// mac OS X
+#include <limits.h>
 
 // Initialize capturing live feed from the camera
 CvCapture* capture = 0;

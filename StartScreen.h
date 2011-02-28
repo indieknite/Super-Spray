@@ -7,4 +7,4 @@
  *
  */
 
-void startDisplay();
+short startDisplay();

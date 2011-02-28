@@ -3,4 +3,6 @@
  *  LaserSpray
  */
 
-void calibrateDisplay();
+void resetCalibration();
+void calculateCoor();
+short calibrateDisplay();

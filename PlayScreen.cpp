@@ -7,11 +7,15 @@
  *
  */
 
-//#include "GLUT/glut.h"	// mac OS X
+#include <GLUT/glut.h>	// mac OS X
 #include "Target.h"
 
 #define WIDTH		(double)glutGet(GLUT_SCREEN_WIDTH)
 #define HEIGHT		(double)glutGet(GLUT_SCREEN_HEIGHT)
+
+// Define the current window state of the game.
+#define STATE_START			1
+#define STATE_PLAY			2
 
 extern int* shot;
 

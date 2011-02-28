@@ -4,8 +4,8 @@
  */
 
 #include "Vec3.h"
-#include "gl/glut.h"		// windows
-//#include "GLUT/glut.h"	// mac OS X
+//#include <gl/glut.h>	// windows
+#include <GLUT/glut.h>	// mac OS X
 
 class Target
 {
