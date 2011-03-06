@@ -8,7 +8,8 @@
  */
 
 #include <string>
-#include <GLUT/glut.h>
+//#include <gl/glut.h>	// windows
+#include <GLUT/glut.h>	// mac OS X
 
 #include "DrawText.h"
 

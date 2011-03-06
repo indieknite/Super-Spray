@@ -70,9 +70,8 @@ void key_press(unsigned char key, int x, int y)
 	{
 		case 's':
 		case 'S':
-			if(gameState == STATE_CALIBRATE)
-				shot = capturePoints();
-			else
+			shot = capturePoints();
+			if(gameState != STATE_CALIBRATE)
 				calculateCoor();
 			
 			isShotFired = true;

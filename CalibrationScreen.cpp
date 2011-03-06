@@ -61,7 +61,6 @@ void resetCalibration()
 // Changes the point where the laser is picked up from webcam coordinates to the actual coordinates used by the glOrtho.
 void calculateCoor()
 {
-	shot = capturePoints();
 	shot[0] = (((shot[0] - xLeft) / (xRight - xLeft)) * WIDTH) - WIDTH/2.0;
 	shot[1] = -1 * ((((shot[1] - yUp) / (yDown - yUp)) * HEIGHT) - HEIGHT/2.0);
 }

@@ -7,6 +7,7 @@
  *
  */
 
+//#include <gl/glut.h>	// windows
 #include <GLUT/glut.h>	// mac OS X
 #include "Target.h"
 
