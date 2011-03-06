@@ -4,8 +4,10 @@
  */
 
 #include <iostream>
-//#include <gl/glut.h>	// windows
-#include <GLUT/glut.h>	// mac OS X
+#include <gl/glut.h>	// windows
+#include <iostream>		// windows
+using namespace std;	// windows
+//#include <GLUT/glut.h>	// mac OS X
 
 #include "graphics.h"
 #include "CalibrationScreen.h"
@@ -71,7 +73,10 @@ void key_press(unsigned char key, int x, int y)
 		case 's':
 		case 'S':
 			if(gameState == STATE_CALIBRATE)
+			{	
 				shot = capturePoints();
+				cout << shot[0] << "      " << shot[1] << endl;
+			}	
 			else
 				calculateCoor();
 			

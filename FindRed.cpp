@@ -1,8 +1,8 @@
 #include <iostream>
-//#include <cv.h>			// windows
-//#include <highgui.h>		// windows
-#include <OpenCV/cv.h>		// mac OS X
-#include <OpenCV/highgui.h>	// mac OS X
+#include <cv.h>			// windows
+#include <highgui.h>		// windows
+//#include <OpenCV/cv.h>		// mac OS X
+//#include <OpenCV/highgui.h>	// mac OS X
 #include <limits.h>
 
 CvCapture* capture;			// Initialize capturing live feed from the camera
@@ -43,7 +43,7 @@ IplImage* GetThresholdedImage(IplImage* img)
 	//			Green	-->	0	<= G < 50
 	//			Red		--> 200	<= R < 255
 	// are set to 1 and all others to 0.
-	cvInRangeS(img, cvScalar(0, 0, 200), cvScalar(50, 50, 255), imgThreshed);
+	cvInRangeS(img, cvScalar(0, 0, 140), cvScalar(20, 20, 255), imgThreshed);
     return imgThreshed;
 }
 
