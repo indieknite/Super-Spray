@@ -23,23 +23,9 @@ Target target1;
 Target target2(Vec3(300.0, -250.0, 0.0));
 Target target3(Vec3(-600.0, 320.0, 0.0));
 
-// Simply draws an XY axis on the screen.
-void make_axis()
-{
-	glColor4f(1.0, 1.0, 1.0, 1.0);
-	glBegin(GL_LINES);
-	glVertex3d(-WIDTH/2.0, 0.0, 0.001);
-	glVertex3d(WIDTH/2.0, 0.0, 0.001);
-	
-	glVertex3d(0.0, HEIGHT/2.0, 0.001);
-	glVertex3d(0.0, -HEIGHT/2.0, 0.001);
-	glEnd();
-}
-
 // Create reticle for debugging purposes.
 void reticle()
 {
-	
 	glColor4f(0.0, 0.0, 1.0, 1.0);
 	glLineWidth(8);
 	glBegin(GL_LINES);
@@ -59,8 +45,6 @@ void playDisplay()
 	glTranslated(shot[0], shot[1], 0);
 	reticle();
 	glPopMatrix();
-	
-	//make_axis(); // Draws XY axis.
 	
 	// Targets
 	target1.drawTarget();

@@ -29,8 +29,8 @@ double xLeft = -1, xRight = -1, yUp = -1, yDown = -1;
 // Defines the points used to draw an arrow.
 void arrow()
 {
-	glColor4f(0.3, 0.3, 0.3, 1.0);
-	glBegin(GL_POLYGON);
+	glLineWidth(3);
+	glBegin(GL_LINE_LOOP);
 	glVertex3d(0.0, 50.0, 0.0);
 	glVertex3d(50.0, 0.0, 0.0);
 	glVertex3d(25.0, 0.0, 0.0);
@@ -39,6 +39,7 @@ void arrow()
 	glVertex3d(-25.0, 0.0, 0.0);
 	glVertex3d(-50.0, 0.0, 0.0);
 	glEnd();
+	glLineWidth(1);
 }
 
 // Moves the arrow to the designated location defined by xMove, yMove, and rotate.

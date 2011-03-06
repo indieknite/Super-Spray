@@ -28,15 +28,16 @@ void Target::drawTarget()
 	// Two * Pi
 	GLfloat twoPi = 2.0f * 3.14159f;
 	
+	glLineWidth(3);
 	glColor4d(color.x, color.y, color.z, alpha);
-	glBegin(GL_TRIANGLE_FAN);
-	glVertex3f(0.0, 0.0, 0.0); // Origin
+	glBegin(GL_LINE_LOOP);
 	for(int i = 0; i <= sections; i++)
 	{
 		glVertex3f(radius * cos(i *  twoPi / sections), 
 				   radius * sin(i * twoPi / sections), 0.0);
 	}
 	glEnd();
+	glLineWidth(1);
 	
 	glPopMatrix();
 }

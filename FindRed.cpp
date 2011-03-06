@@ -5,8 +5,18 @@
 #include <OpenCV/highgui.h>	// mac OS X
 #include <limits.h>
 
-// Initialize capturing live feed from the camera
-CvCapture* capture = 0;
+CvCapture* capture;			// Initialize capturing live feed from the camera
+
+static int xy[2] = {0,0};	// Will store the X and Y coordinate where the red dot is located
+double area = 0.0;
+
+IplImage* frame;			// Will hold a frame captured from the camera
+
+void stopCamera()
+{
+	// We're done using the camera. Other applications can now use it
+    cvReleaseCapture(&capture);
+}
 
 void initializeCamera()
 {
@@ -16,59 +26,48 @@ void initializeCamera()
     if(!capture)
     {
         printf("Could not initialize capturing...\n");
-		exit(-2);
+		stopCamera();
+        exit(-2);
     }
-}
-
-void stopCamera()
-{
-	// We're done using the camera. Other applications can now use it
-    cvReleaseCapture(&capture);
 }
 
 IplImage* GetThresholdedImage(IplImage* img)
 {
-	 // Convert the image into an HSV image
-    IplImage* imgHSV = cvCreateImage(cvGetSize(img), 8, 3);
-    cvCvtColor(img, imgHSV, CV_BGR2HSV);
-
+	// Creates a blank image where we will store our binary image.
 	IplImage* imgThreshed = cvCreateImage(cvGetSize(img), 8, 1);
 	
-	cvInRangeS(imgHSV, cvScalar(100, 100, 80), cvScalar(255, 255, 200), imgThreshed);
-
-	cvReleaseImage(&imgHSV);
+	// Images are handled using BGR color spectrum.
+	// Creates a binary image where all color pixels that have
+	// there values defined as
+	//			Blue	--> 0	<= B < 50
+	//			Green	-->	0	<= G < 50
+	//			Red		--> 200	<= R < 255
+	// are set to 1 and all others to 0.
+	cvInRangeS(img, cvScalar(0, 0, 200), cvScalar(50, 50, 255), imgThreshed);
     return imgThreshed;
 }
 
 int* capturePoints()
 {
-	// Will hold a frame captured from the camera
-	IplImage* frame = 0;
 	frame = cvQueryFrame(capture);
 	
 	// If we couldn't grab a frame... quit
 	if(!frame)
 		return NULL;
 	
-	// Holds the yellow thresholded image (yellow = white, rest = black)
+	// Holds the red thresholded image (yellow = white, rest = black)
 	IplImage* imgRedThresh = GetThresholdedImage(frame);
 	
-	// Calculate the moments to estimate the position of the ball
-	CvMoments *moments = (CvMoments*)malloc(sizeof(CvMoments));
+	// Calculate the moments to estimate the position of the ball.
+	CvMoments* moments = (CvMoments*)malloc(sizeof(CvMoments));
 	cvMoments(imgRedThresh, moments, 1);
 	
 	// The actual moment values
-	double moment10 = cvGetSpatialMoment(moments, 1, 0);
-	double moment01 = cvGetSpatialMoment(moments, 0, 1);
-	double area = cvGetCentralMoment(moments, 0, 0);
+	area = cvGetCentralMoment(moments, 0, 0);
+	xy[0] = cvGetSpatialMoment(moments, 1, 0)/area; // X
+	xy[1] = cvGetSpatialMoment(moments, 0, 1)/area; // Y
 	
-	// Will store the X and Y coordinate where the red dot is located
-	static int xy[2] = {0,0};
-	
-	xy[0] = moment10/area; // X
-	xy[1] = moment01/area; // Y
-	
-	// Release the thresholded image+moments
+	// Release the images and moments
 	cvReleaseImage(&imgRedThresh);
 	delete moments;
 	
