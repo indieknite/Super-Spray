@@ -3,9 +3,13 @@
  *  LaserSpray
  */
 
-//#include <gl/glut.h>	// windows
-#include <GLUT/glut.h>	// mac OS X
+//#include <stdlib.h>		// Windows
+//#include <gl/glut.h>		// Windows
+#include <GLUT/glut.h>		// Mac OS X
 #include <limits.h>
+
+#include <iostream>
+using namespace std;
 
 #include "DrawText.h"
 #include "FindRed.h"
@@ -63,6 +67,8 @@ void calculateCoor()
 {
 	shot[0] = (((shot[0] - xLeft) / (xRight - xLeft)) * WIDTH) - WIDTH/2.0;
 	shot[1] = -1 * ((((shot[1] - yUp) / (yDown - yUp)) * HEIGHT) - HEIGHT/2.0);
+
+	cout << "Calc: " << shot[0] << "      " << shot[1] << endl;
 }
 
 // Main display function for the calibration screen. Will grab the values located
@@ -84,6 +90,7 @@ short calibrateDisplay()
 		if(isShotFired)
 		{
 			xLeft = shot[0];
+			cout << "xLeft " << xLeft << endl;
 		}
 	}
 	// The right corner.
@@ -93,6 +100,7 @@ short calibrateDisplay()
 		if(isShotFired)
 		{
 			xRight = shot[0];
+			cout << "xRight " << xRight << endl;
 		}
 	}
 	// The top corner.
@@ -102,6 +110,7 @@ short calibrateDisplay()
 		if(isShotFired)
 		{
 			yUp = shot[1];
+			cout << "yUp " << yUp << endl;
 		}
 	}
 	// The bottom corner.
@@ -111,11 +120,33 @@ short calibrateDisplay()
 		if(isShotFired)
 		{
 			yDown = shot[1];
+			cout << "yDown " << yDown << endl;
 		}
 	}
 	// Calibration is done. Move on to the start screen.
 	else
 	{
+		// fix the potential "flipping" of the image from our camera.
+		int temp = 0;
+		if (xLeft > xRight)
+		{
+			temp = xLeft;
+			xLeft = xRight;
+			xRight = temp;
+		}
+		if (yUp > yDown)
+		{
+			temp = yUp;
+			yUp = yDown;
+			yDown = temp;
+		}
+		cout << "**************************" << endl;
+		cout << "xLeft " << xLeft << endl;
+		cout << "xRight " << xRight << endl;
+		cout << "yUp " << yUp << endl;
+		cout << "yDown " << yDown << endl;
+		cout << "**************************" << endl;
+
 		return STATE_START;
 	}
 	

@@ -3,9 +3,11 @@
  *  LaserSpray
  */
 
+//#include <gl/glut.h>	// Windows
+#include <GLUT/glut.h>	// Mac OS X
+
 #include <iostream>
-//#include <gl/glut.h>	// windows
-#include <GLUT/glut.h>	// mac OS X
+using namespace std;	// windows
 
 #include "graphics.h"
 #include "CalibrationScreen.h"
@@ -71,6 +73,7 @@ void key_press(unsigned char key, int x, int y)
 		case 's':
 		case 'S':
 			shot = capturePoints();
+			cout << "Raw:  " << shot[0] << "      " << shot[1] << endl;
 			if(gameState != STATE_CALIBRATE)
 				calculateCoor();
 			

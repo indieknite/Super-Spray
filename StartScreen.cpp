@@ -7,11 +7,11 @@
  *
  */
 
-//#include <windows.h>	// Windows
-//#include <stdlib.h>	// Windows
-#include <unistd.h>		// Mac OS X
-//#include <gl/glut.h>	// Windows
-#include <GLUT/glut.h>	// mac OS X
+//#include <windows.h>		// Windows
+//#include <stdlib.h>		// Windows
+#include <unistd.h>			// Mac OS X
+//#include <gl/glut.h>		// Windows
+#include <GLUT/glut.h>		// Mac OS X
 
 #include "DrawText.h"
 #include "Target.h"
@@ -35,8 +35,8 @@ int i = 0;
 
 // Objects that handle how scores are handled and stored when they are high enough
 // to be displayed on the main start page.
-HighScoreList table(3,10);
-ScoreItem playerScore;
+//HighScoreList table(3,10);
+//ScoreItem playerScore;
 
 char numString[20];
 int yPos;
@@ -85,7 +85,7 @@ void drawHighScoreTable()
 	yPos = 265;
 	for(int i = 0; i < 10; i++)
 	{
-		drawScore((i+1), table.getName(i), table.getScore(i), 250, yPos);
+		//drawScore((i+1), table.getName(i), table.getScore(i), 250, yPos);
 		yPos = yPos - 35;
 	}
 }
@@ -118,14 +118,14 @@ short startDisplay()
 	glRasterPos2f(-275, 0);
 	drawSentence("SUPER SPRAY");
 	
-	drawHighScoreTable();
+	//drawHighScoreTable();
 	
 	// Re-enable Depth Test after alpha rendering is done.
 	glEnable(GL_DEPTH_TEST);
 	
 	if(isShotFired)
 	{
-		playerScore = ScoreItem(3);
+		//playerScore = ScoreItem(3);
 		return STATE_PLAY;
 	}
 	else
