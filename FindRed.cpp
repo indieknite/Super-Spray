@@ -1,8 +1,8 @@
 #include <iostream>
-//#include <cv.h>			// windows
-//#include <highgui.h>		// windows
-#include <OpenCV/cv.h>		// mac OS X
-#include <OpenCV/highgui.h>	// mac OS X
+//#include <cv.h>			// Windows
+//#include <highgui.h>		// Windows
+#include <OpenCV/cv.h>		// Mac OS X
+#include <OpenCV/highgui.h>	// Mac OS X
 #include <limits.h>
 
 CvCapture* capture;			// Initialize capturing live feed from the camera
@@ -49,6 +49,7 @@ IplImage* GetThresholdedImage(IplImage* img)
 
 int* capturePoints()
 {
+	cvQueryFrame(capture);
 	frame = cvQueryFrame(capture);
 	
 	// If we couldn't grab a frame... quit

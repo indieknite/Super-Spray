@@ -7,8 +7,8 @@
  *
  */
 
-//#include <gl/glut.h>	// windows
-#include <GLUT/glut.h>	// mac OS X
+//#include <gl/glut.h>	// Windows
+#include <GLUT/glut.h>	// Mac OS X
 #include "Target.h"
 
 #define WIDTH		(double)glutGet(GLUT_SCREEN_WIDTH)

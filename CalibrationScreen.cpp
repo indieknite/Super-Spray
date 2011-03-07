@@ -3,8 +3,8 @@
  *  LaserSpray
  */
 
-//#include <gl/glut.h>	// windows
-#include <GLUT/glut.h>	// mac OS X
+//#include <gl/glut.h>	// Windows
+#include <GLUT/glut.h>	// Mac OS X
 #include <limits.h>
 
 #include "DrawText.h"
