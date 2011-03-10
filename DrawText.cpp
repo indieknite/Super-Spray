@@ -11,8 +11,6 @@
 //#include <gl/glut.h>	// Windows
 #include <GLUT/glut.h>	// Mac OS X
 
-#include "DrawText.h"
-
 void drawSentence(char* str)
 {
 	for(int i = 0; i <= strlen(str); i++)

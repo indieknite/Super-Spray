@@ -3,7 +3,6 @@
 //#include <highgui.h>		// Windows
 #include <OpenCV/cv.h>		// Mac OS X
 #include <OpenCV/highgui.h>	// Mac OS X
-#include <limits.h>
 
 CvCapture* capture;			// Initialize capturing live feed from the camera
 
@@ -27,7 +26,7 @@ void initializeCamera()
     {
         printf("Could not initialize capturing...\n");
 		stopCamera();
-        exit(-2);
+        exit(-1);
     }
 }
 

@@ -3,6 +3,9 @@
  *  LaserSpray
  */
 
+#ifndef __Target__
+#define __Target__
+
 #include "Vec3.h"
 //#include <gl/glut.h>	// Windows
 #include <GLUT/glut.h>	// Mac OS X
@@ -13,17 +16,19 @@ class Target
 	int counter;
 	Vec3 position;
 	Vec3 color;
+	bool explosionType;
 	
 	bool hitStatus;
-	double alpha;
+	float alpha;
 	GLfloat radius;
 	
 	public:
-	Target(Vec3 pos = Vec3(0.0, 0.0, 0.0), Vec3 col = Vec3(0.3, 0.3, 0.3), int count = 10);
+	Target(Vec3 pos = Vec3(-1000.0, -1000.0, 0.0), Vec3 col = Vec3(0.3, 0.3, 0.3), int count = 60);
 	
 	inline void setHitStatus(bool newStatus) { hitStatus = newStatus; };
 	inline void decreaseCounter() { --counter; };
-	inline void setAlpha(double newAlpha) { alpha = newAlpha; };
+	inline void setExplosionType(bool newType) { explosionType = newType; };
+	inline void decreaseAlpha(float deltaAlpha) { if(alpha > 0) alpha -= deltaAlpha; };
 	inline void setColor(Vec3 newColor) { color = newColor; };
 	
 	void drawTarget();
@@ -32,4 +37,8 @@ class Target
 	inline bool getStatus() { return hitStatus; };
 	inline int getCounter() { return counter; };
 	inline Vec3 getPosition() { return position; };
+	inline bool getExplosionType() { return explosionType; };
+	inline float getAlpha() { return alpha; };
 };
+
+#endif

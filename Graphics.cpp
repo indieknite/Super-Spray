@@ -11,9 +11,9 @@
 #include "CalibrationScreen.h"
 #include "StartScreen.h"
 #include "PlayScreen.h"
-#include "Target.h"
 #include "CS112.h"
 #include "FindRed.h"
+#include "SoundEffectsLibrary.h"
 
 // gluLookAt values
 #define EYE				Vec3(0, 0, 5)
@@ -48,13 +48,12 @@ void display()
 	{
 		case STATE_CALIBRATE:
 			gameState = calibrateDisplay();
-			glutPostRedisplay();
 			break;
 		case STATE_START:
 			gameState = startDisplay();
 			break;
 		case STATE_PLAY:
-			playDisplay();
+			gameState = playDisplay();
 			break;
 	}
 	
@@ -62,6 +61,19 @@ void display()
 	
 	glFlush();
 	glutSwapBuffers();
+}
+
+static void timerCallBack(int value)
+{
+	if(gameState == STATE_PLAY)
+		decrementTime(TIME_STEP);
+	else
+		setTime(60.0f);
+	
+	decreaseTargetTimeOnScreen();
+	
+	glutTimerFunc(50, timerCallBack, 0);
+	glutPostRedisplay();
 }
 
 void key_press(unsigned char key, int x, int y)
@@ -75,17 +87,18 @@ void key_press(unsigned char key, int x, int y)
 				calculateCoor();
 			
 			isShotFired = true;
-			checkAllHits();
-			glutPostRedisplay();
+			if(gameState == STATE_PLAY)
+				checkAllHits();
 			break;
 		case 'r':
 		case 'R':
-			resetTargets();
-			glutPostRedisplay();
+			playSound1();
+			gameState = STATE_START;
 			break;
 		case 'q':
         case 'Q':
 			stopCamera();
+			releaseSounds();
             exit(0);
 	}
 }
@@ -101,6 +114,7 @@ void initializeGraphics(int argc, char** argv)
 
 	// Various callback functions.
 	glutDisplayFunc(display);
+	glutTimerFunc(50, timerCallBack, 0);
 	glutKeyboardFunc(key_press);
 	
 	// Enable and set certain features within our OpenGL environment,

@@ -13,48 +13,66 @@
 //#include <gl/glut.h>		// Windows
 #include <GLUT/glut.h>		// Mac OS X
 
+#include "SoundEffectsLibrary.h"
 #include "DrawText.h"
 #include "Target.h"
 #include "HighScoreList.h"
+#include "PlayerScore.h"
 
 // Define the current window state of the game.
 #define STATE_CALIBRATE		0
 #define STATE_START			1
 #define STATE_PLAY			2
 
+// The original width and height, as defined by the computers resolution.
+#define WIDTH				(double)glutGet(GLUT_SCREEN_WIDTH)
+#define HEIGHT				(double)glutGet(GLUT_SCREEN_HEIGHT)
+
+#define MAX_NUM_TARGETS		50
+
 // If true, a shot was fired by the user and an appropriate action
 // should be done by the game.
 extern bool isShotFired;
 
-// The total amount of targets to display on the start screen.
-const int maxNumTargets = 50;
-
-Target target;					// Placeholder for changing the values of the created target.
-Target splash[maxNumTargets];	// Holds all the targets to be displayed that are created.
+Target splash[MAX_NUM_TARGETS];	// Holds all the targets to be displayed that are created.
 int i = 0;
 
 // Objects that handle how scores are handled and stored when they are high enough
 // to be displayed on the main start page.
-//HighScoreList table(3,10);
-//ScoreItem playerScore;
-
-char numString[20];
-int yPos;
+HighScoreList table(3,10);
 
 // Draws a box to display behind the title so that it can be read easier.
-void drawBox()
+void drawBox(int xSize, int ySize)
 {
 	glColor4d(0.3, 0.3, 0.3, 0.6);
 	glBegin(GL_QUADS);
-	glVertex3d(100.0, 25.0, 0.0);
-	glVertex3d(100.0, -25.0, 0.0);
-	glVertex3d(-100.0, -25.0, 0.0);
-	glVertex3d(-100.0, 25.0, 0.0);
+	glVertex3d(xSize, ySize, 0.0);
+	glVertex3d(xSize, -ySize, 0.0);
+	glVertex3d(-xSize, -ySize, 0.0);
+	glVertex3d(-xSize, ySize, 0.0);
 	glEnd();
 }
 
+void drawTitle()
+{
+	glPushMatrix();
+	glTranslated(-(WIDTH/5.20), 8, 0.0);
+	drawBox(100,25);
+	glPopMatrix();
+	
+	glPushMatrix();
+	glColor3f(1, 1, 1);
+	glRasterPos2f(-(WIDTH/4), 0);
+	drawSentence("SUPER SPRAY");
+	glPopMatrix();
+}
+
+// HIGHSCORES ------------------------------------------------------------
+
 void drawScore(int num, char* name, int score, float xPos, float yPos)
 {
+	char numString[10];
+	
 	sprintf(numString, "%d.", num);
 	glRasterPos2f(xPos, yPos);
 	drawSentence(numString);
@@ -69,11 +87,17 @@ void drawScore(int num, char* name, int score, float xPos, float yPos)
 
 void drawHighScoreTable()
 {
-	glRasterPos2f(275, 300);
+	glPushMatrix();
+	glTranslated(WIDTH/4.10, HEIGHT/20, 0.0);
+	drawBox(150,230);
+	glPopMatrix();
+	
+	glColor3f(1.0,1.0,1.0);
+	glRasterPos2f(WIDTH/5, HEIGHT/4);
 	drawSentence("High Scores");
 	
 	glPushMatrix();
-	glTranslated(235, 290, 0);
+	glTranslated(WIDTH/5.8, HEIGHT/4.5, 0);
 	glLineWidth(3);
 	glBegin(GL_LINES);
 	glVertex3d(0.0, 0.0, 0.0);
@@ -82,50 +106,51 @@ void drawHighScoreTable()
 	glLineWidth(1);
 	glPopMatrix();
 	
-	yPos = 265;
+	glPushMatrix();
+	int yPos = HEIGHT/5.5;
 	for(int i = 0; i < 10; i++)
 	{
-		//drawScore((i+1), table.getName(i), table.getScore(i), 250, yPos);
+		drawScore((i+1), table.getName(i), table.getScore(i), 270, yPos);
 		yPos = yPos - 35;
 	}
+	glPopMatrix();
 }
+
+// -----------------------------------------------------------------------
 
 short startDisplay()
 {
 	// Disable Depth Test to enable alpha to be shown.
 	glDisable(GL_DEPTH_TEST);
 	
-	target = Target(Vec3(rand() % glutGet(GLUT_SCREEN_WIDTH) - glutGet(GLUT_SCREEN_WIDTH)/2,
+	// Creates the targets to show on the splash screen.
+	// Their location on screen is determined randomly, as
+	// well as their color.
+	Target target = Target(Vec3(rand() % glutGet(GLUT_SCREEN_WIDTH) - glutGet(GLUT_SCREEN_WIDTH)/2,
 						 rand() % glutGet(GLUT_SCREEN_HEIGHT) - glutGet(GLUT_SCREEN_HEIGHT)/2, 0));
 	target.setColor(Vec3(0, double(rand())/RAND_MAX, double(rand())/RAND_MAX));
 	splash[i] = target;
-	i = (i + 1) % maxNumTargets;
+	i = (i + 1) % MAX_NUM_TARGETS;
 	
-	for(int j = 0; j < maxNumTargets; j++)
+	// Displays the targets on screen.
+	for(int j = 0; j < MAX_NUM_TARGETS; j++)
 	{
 		splash[j].drawTarget();
 		//Sleep(1);				// Windows
-		usleep(400);			// Mac OS X
-		glutPostRedisplay();
+		usleep(1000);			// Mac OS X
 	}
 	
-	glPushMatrix();
-	glTranslated(-195, 8.0, 0.0);
-	drawBox();
-	glPopMatrix();
+	drawTitle();
 	
-	glColor3f(1, 1, 1);
-	glRasterPos2f(-275, 0);
-	drawSentence("SUPER SPRAY");
-	
-	//drawHighScoreTable();
+	drawHighScoreTable();
 	
 	// Re-enable Depth Test after alpha rendering is done.
 	glEnable(GL_DEPTH_TEST);
 	
 	if(isShotFired)
 	{
-		//playerScore = ScoreItem(3);
+		stopSound1();
+		createNewScore();
 		return STATE_PLAY;
 	}
 	else

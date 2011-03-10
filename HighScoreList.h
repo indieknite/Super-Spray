@@ -1,7 +1,10 @@
 /*
- *  highScores.h
+ *  HighScores.h
  *  LaserSpray
  */
+
+#ifndef __HighScores__
+#define __HighScores__
 
 #include "ScoreItem.h"
 
@@ -16,10 +19,11 @@ protected:
 	
 public:
 	HighScoreList(int NameLength, int MaxScores);
-	~HighScoreList();
 	
 	void addScoreItem(ScoreItem newScore);
 	inline char* getName(int pos) const { return table[pos].getName(); };
 	inline int getScore(int pos) const { return table[pos].getScore(); };
 	inline int isDefined(int pos) const { return table[pos].isDefined(); };
 };
+
+#endif

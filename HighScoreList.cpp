@@ -22,12 +22,6 @@ HighScoreList::HighScoreList(int NameLength, int MaxScores)
 	}
 }
 
-// Deallocates the high score data array.
-HighScoreList::~HighScoreList()
-{
-	delete(table);
-}
-
 void HighScoreList::addScoreItem(ScoreItem newScore)
 {
 	// Is the new entry a high score?

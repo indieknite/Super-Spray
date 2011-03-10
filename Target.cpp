@@ -10,6 +10,8 @@ Target::Target(Vec3 pos, Vec3 col, int count)
 	position = pos;
 	color = col;
 	counter = count;
+	explosionType = false;
+	
 	
 	hitStatus = false;
 	alpha = 1.0;

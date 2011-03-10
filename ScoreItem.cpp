@@ -8,6 +8,7 @@
  */
 
 #include <string>
+
 #include "ScoreItem.h"
 
 #define NO_SCORE		0

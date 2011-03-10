@@ -8,6 +8,7 @@
 #include <GLUT/glut.h>		// Mac OS X
 #include <limits.h>
 
+#include "SoundEffectsLibrary.h"
 #include "DrawText.h"
 #include "FindRed.h"
 
@@ -26,6 +27,8 @@ extern bool isShotFired;
 
 // Values used to help calibrate the screen.
 double xLeft = -1, xRight = -1, yUp = -1, yDown = -1;
+
+// ARROW --------------------------------------------------------------------------------------------------------------
 
 // Defines the points used to draw an arrow.
 void arrow()
@@ -52,6 +55,8 @@ void moveArrow(int xOn, int yOn, int xMove, int yMove, int rotate)
 	arrow();
 	glPopMatrix();
 }
+
+// --------------------------------------------------------------------------------------------------------------------
 
 // Called when if moving from the start screen back the to calibrating screen to recalculate the values of the corners.
 void resetCalibration()
@@ -117,9 +122,9 @@ short calibrateDisplay()
 	// Calibration is done. Move on to the start screen.
 	else
 	{
+		playSound1();
 		return STATE_START;
 	}
 	
-	isShotFired = false;
 	return STATE_CALIBRATE;
 }
