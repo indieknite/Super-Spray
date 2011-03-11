@@ -1,10 +1,6 @@
 /*
  *  StartScreen.cpp
- *  LaserSpray
- *
- *  Created by Adrian Guzman on 2/10/11.
- *  Copyright 2011 __MyCompanyName__. All rights reserved.
- *
+ *  Super Spray
  */
 
 //#include <windows.h>		// Windows
@@ -16,7 +12,7 @@
 #include "SoundEffectsLibrary.h"
 #include "DrawText.h"
 #include "Target.h"
-#include "HighScoreList.h"
+#include "HighScores.h"
 #include "PlayerScore.h"
 
 // Define the current window state of the game.
@@ -36,10 +32,6 @@ extern bool isShotFired;
 
 Target splash[MAX_NUM_TARGETS];	// Holds all the targets to be displayed that are created.
 int i = 0;
-
-// Objects that handle how scores are handled and stored when they are high enough
-// to be displayed on the main start page.
-HighScoreList table(3,10);
 
 // Draws a box to display behind the title so that it can be read easier.
 void drawBox(int xSize, int ySize)
@@ -110,7 +102,7 @@ void drawHighScoreTable()
 	int yPos = HEIGHT/5.5;
 	for(int i = 0; i < 10; i++)
 	{
-		drawScore((i+1), table.getName(i), table.getScore(i), 270, yPos);
+		drawScore((i+1), getPlayerName(i), getPlayerScore(i), 270, yPos);
 		yPos = yPos - 35;
 	}
 	glPopMatrix();

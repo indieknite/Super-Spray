@@ -1,6 +1,6 @@
 /*
  *  SessionTime.cpp
- *  LaserSpray
+ *  Super Spray
  */
 
 //#include <gl/glut.h>		// Windows

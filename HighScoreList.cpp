@@ -1,6 +1,6 @@
 /*
  *  highScores.cpp
- *  LaserSpray
+ *  Super Spray
  */
 
 #include "HighScoreList.h"
@@ -22,16 +22,22 @@ HighScoreList::HighScoreList(int NameLength, int MaxScores)
 	}
 }
 
-void HighScoreList::addScoreItem(ScoreItem newScore)
+bool HighScoreList::isScoreHighEnough(ScoreItem newScore)
 {
 	// Is the new entry a high score?
 	if(numEntries == MAX_NUM_HIGHSCORES) // The array is full.
 	{
 		if(newScore.getScore() <= table[MAX_NUM_HIGHSCORES - 1].getScore())
-			return; // The new entry is not a high score in this case.
+			return false; // The new entry is not a high score in this case.
 	}
-	else // The array is not full.
+	else
 		numEntries++;
+	
+	return true;
+}
+
+void HighScoreList::addScoreItem(ScoreItem newScore)
+{
 	//Locate the place the new entry belongs.
 	int i = numEntries - 1;
 	for(; (i >= 1) && (newScore.getScore() > table[i-1].getScore()); i--)

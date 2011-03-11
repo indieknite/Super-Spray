@@ -1,10 +1,6 @@
 /*
  *  ScoreItem.cpp
- *  LaserSpray
- *
- *  Created by Adrian Guzman on 3/5/11.
- *  Copyright 2011 __MyCompanyName__. All rights reserved.
- *
+ *  Super Spray
  */
 
 #include <string>

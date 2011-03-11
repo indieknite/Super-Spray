@@ -1,10 +1,6 @@
 /*
  *  DrawText.cpp
- *  LaserSpray
- *
- *  Created by Adrian Guzman on 2/16/11.
- *  Copyright 2011 __MyCompanyName__. All rights reserved.
- *
+ *  Super Spray
  */
 
 #include <string>

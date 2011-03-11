@@ -1,3 +1,8 @@
+/*
+ *  Main.cpp
+ *  Super Spray
+ */
+
 #include "graphics.h"
 #include "findRed.h"
 #include "SoundEffectsLibrary.h"

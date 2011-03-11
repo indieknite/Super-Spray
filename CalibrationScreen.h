@@ -1,6 +1,6 @@
 /*
  *  CalibrationScreen.h
- *  LaserSpray
+ *  Super Spray
  */
 
 #ifndef __CalibrationScreen__

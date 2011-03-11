@@ -1,6 +1,6 @@
 /*
  *  ScoreItem.h
- *  LaserSpray
+ *  Super Spray
  */
 
 #ifndef __ScoreItem__

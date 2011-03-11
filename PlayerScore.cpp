@@ -1,6 +1,6 @@
 /*
  *  PlayerScore.cpp
- *  LaserSpray
+ *  Super Spray
  *
  *  Created by Adrian Guzman on 3/9/11.
  *  Copyright 2011 __MyCompanyName__. All rights reserved.
@@ -40,7 +40,7 @@ void incrementScore(int addScore)
 	playerScore.incrementScore(addScore);
 }
 
-void setScoreName(char* newName)
+void setPlayerName(char* newName)
 {
 	playerScore.setName(newName);
 }

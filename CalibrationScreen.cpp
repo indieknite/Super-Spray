@@ -1,6 +1,6 @@
 /*
  *  CalibrationScreen.cpp
- *  LaserSpray
+ *  Super Spray
  */
 
 //#include <stdlib.h>		// Windows
@@ -26,7 +26,7 @@ extern int* shot;
 extern bool isShotFired;
 
 // Values used to help calibrate the screen.
-double xLeft = -1, xRight = -1, yUp = -1, yDown = -1;
+double xLeft = 1, xRight = 1, yUp = 1, yDown = 1;
 
 // ARROW --------------------------------------------------------------------------------------------------------------
 

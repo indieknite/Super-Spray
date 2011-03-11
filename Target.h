@@ -1,6 +1,6 @@
 /*
  *  Target.h
- *  LaserSpray
+ *  Super Spray
  */
 
 #ifndef __Target__
@@ -14,13 +14,14 @@ class Target
 {
 	private:
 	int counter;
+	bool explosionType;
+	bool hitStatus;
+	
+	protected:
 	Vec3 position;
 	Vec3 color;
-	bool explosionType;
-	
-	bool hitStatus;
-	float alpha;
 	GLfloat radius;
+	float alpha;
 	
 	public:
 	Target(Vec3 pos = Vec3(-1000.0, -1000.0, 0.0), Vec3 col = Vec3(0.3, 0.3, 0.3), int count = 60);

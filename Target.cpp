@@ -1,6 +1,6 @@
 /*
  *  Target.cpp
- *  LaserSpray
+ *  Super Spray
  */
 
 #include "Target.h"
@@ -14,7 +14,7 @@ Target::Target(Vec3 pos, Vec3 col, int count)
 	
 	
 	hitStatus = false;
-	alpha = 1.0;
+	alpha = 1.0f;
 	radius = 50.0f;
 }
 
@@ -25,8 +25,6 @@ void Target::drawTarget()
 	
 	int sections = 128;
 	
-	// Radius
-	radius = 50.0f;
 	// Two * Pi
 	GLfloat twoPi = 2.0f * 3.14159f;
 	

@@ -1,6 +1,6 @@
 /*
  *  FindRed.h
- *	SuperSpray
+ *	Super Spray
  */
 
 #ifndef __FindRed__

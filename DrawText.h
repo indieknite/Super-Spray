@@ -1,6 +1,6 @@
 /*
  *  DrawText.h
- *  LaserSpray
+ *  Super Spray
  */
 
 #ifndef __DrawText__

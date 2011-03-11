@@ -1,10 +1,6 @@
 /*
  *  PlayScreen.cpp
- *  LaserSpray
- *
- *  Created by Adrian Guzman on 2/10/11.
- *  Copyright 2011 __MyCompanyName__. All rights reserved.
- *
+ *  Super Spray
  */
 
 //#include <stdlib.h>		// Windows
@@ -16,12 +12,15 @@
 #include "DrawText.h"
 #include "Target.h"
 #include "PlayerScore.h"
+#include "HighScores.h"
 #include "SessionTime.h"
 #include "Explosion.h"
 
 // Define the current window state of the game.
-#define STATE_START			1
 #define STATE_PLAY			2
+#define STATE_HIGHSCORES	3
+#define STATE_GAMEOVER		4
+
 
 #define MAX_NUM_TARGETS		100
 
@@ -95,7 +94,7 @@ void drawTime()
 	glPushMatrix();
 	sprintf(timeString, "Time Left: %f", getTime());
 	glColor3f(1.0f, 1.0f, 1.0f);
-	glRasterPos2f(WIDTH/2.59, HEIGHT/2.1);
+	glRasterPos2f(WIDTH/2 - 165, HEIGHT/2 - 20);
 	drawSentence(timeString);
 	glPopMatrix();
 }
@@ -106,7 +105,7 @@ void drawScore()
 	glPushMatrix();
 	sprintf(scoreString, "Score: %u", getScore());
 	glColor3f(1.0f, 1.0f, 1.0f);
-	glRasterPos2f(-WIDTH/2, HEIGHT/2.1);
+	glRasterPos2f(-WIDTH/2, HEIGHT/2 - 20);
 	drawSentence(scoreString);
 	glPopMatrix();
 }
@@ -115,11 +114,11 @@ void drawAmmo()
 {
 	glPushMatrix();
 	glColor3f(1.0f, 1.0f, 1.0f);
-	glRasterPos2f(-WIDTH/2, -HEIGHT/2.1);
+	glRasterPos2f(-WIDTH/2, -HEIGHT/2 + 10);
 	drawSentence("Ammo: ");
 	
 	glColor3f(0.0f, 0.0f, 1.0f);
-	glRasterPos2f(-WIDTH/2.25, -HEIGHT/2.1);
+	glRasterPos2f(-WIDTH/2 + 80, -HEIGHT/2 + 10);
 	for(int i = 0; i < 16/* AMMO AMOUNT */; i++)
 		drawSentence("<>");
 	glPopMatrix();
@@ -214,11 +213,6 @@ void decreaseTargetTimeOnScreen()
 	}
 }
 
-void setExplosionFlag(bool newFlag)
-{
-	explosionFlag = newFlag;
-}
-
 // -------------------------------------------------------------------------------------------
 
 short playDisplay()
@@ -255,9 +249,12 @@ short playDisplay()
 	{
 		return STATE_PLAY;
 	}
+	else if(checkNewScore(getScoreItem()))
+	{
+		return STATE_HIGHSCORES;
+	}
 	else
 	{
-		playSound1();
-		return STATE_START;
+		return STATE_GAMEOVER;
 	}
 }

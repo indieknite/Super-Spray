@@ -1,6 +1,6 @@
 /*
  *  HighScores.h
- *  LaserSpray
+ *  Super Spray
  */
 
 #ifndef __HighScores__
@@ -20,6 +20,7 @@ protected:
 public:
 	HighScoreList(int NameLength, int MaxScores);
 	
+	bool isScoreHighEnough(ScoreItem newScore);
 	void addScoreItem(ScoreItem newScore);
 	inline char* getName(int pos) const { return table[pos].getName(); };
 	inline int getScore(int pos) const { return table[pos].getScore(); };

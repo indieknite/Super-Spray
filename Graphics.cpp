@@ -11,6 +11,8 @@
 #include "CalibrationScreen.h"
 #include "StartScreen.h"
 #include "PlayScreen.h"
+#include "HighScoreScreen.h"
+#include "GameOverScreen.h"
 #include "CS112.h"
 #include "FindRed.h"
 #include "SoundEffectsLibrary.h"
@@ -33,6 +35,8 @@
 #define STATE_CALIBRATE		0
 #define STATE_START			1
 #define STATE_PLAY			2
+#define STATE_HIGHSCORES	3
+#define STATE_GAMEOVER		4
 
 int* shot = new int[2];
 bool isShotFired = false;
@@ -54,6 +58,12 @@ void display()
 			break;
 		case STATE_PLAY:
 			gameState = playDisplay();
+			break;
+		case STATE_HIGHSCORES:
+			gameState = highScoreDisplay();
+			break;
+		case STATE_GAMEOVER:
+			gameState = gameOverDisplay();
 			break;
 	}
 	
@@ -86,9 +96,14 @@ void key_press(unsigned char key, int x, int y)
 			if(gameState != STATE_CALIBRATE)
 				calculateCoor();
 			
+			shot[0] = 0;
+			shot[1] = 0;
+			
 			isShotFired = true;
 			if(gameState == STATE_PLAY)
 				checkAllHits();
+			else if(gameState == STATE_HIGHSCORES)
+				checkKeyboardTargets();
 			break;
 		case 'r':
 		case 'R':
@@ -122,7 +137,7 @@ void initializeGraphics(int argc, char** argv)
 	glEnable(GL_DEPTH_TEST); // Turn on depth buffering.
 	glEnable(GL_BLEND);
 	glFrontFace(GL_CCW);     // Make "front" faces counter-clockwise (True by default).
-	glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	
 	// Set up the viewing frustum.  Zooming will be performed here by changing the size
     // of the XY extent of the frustum.
@@ -135,6 +150,8 @@ void initializeGraphics(int argc, char** argv)
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
     gluLookAt(EYE, CENTER, UP);
+	
+	initializeCharTargets();
 	
 	// Give OpenGL control, which is never returned to this program.
     glutMainLoop();

@@ -1,3 +1,8 @@
+/*
+ *  FindRed.cpp
+ *  Super Spray
+ */
+
 #include <iostream>
 //#include <cv.h>			// Windows
 //#include <highgui.h>		// Windows

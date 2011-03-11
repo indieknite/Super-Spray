@@ -1,6 +1,6 @@
 /*
  *  Graphics.h
- *  LaserSpray
+ *  Super Spray
  */
 
 #ifndef __Graphics__

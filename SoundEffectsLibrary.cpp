@@ -1,10 +1,6 @@
 /*
  *  SoundEffectsLibrary.cpp
- *  LaserSpray
- *
- *  Created by Adrian Guzman on 3/9/11.
- *  Copyright 2011 __MyCompanyName__. All rights reserved.
- *
+ *  Super Spray
  */
 
 #include "/Developer/FMOD Programmers API Mac/api/inc/fmod.hpp"
@@ -58,6 +54,9 @@ void initializeSound()
 	
 	result = system->createSound("/Users/adrtwin/Music/What You Know (Mustang Remix).mp3", FMOD_SOFTWARE, 0, &sound1);
     ERRCHECK(result);
+	
+	
+	
 	/*
 	result = system->createSound("CALIBRATING", FMOD_SOFTWARE, 0, &sound2);
     ERRCHECK(result);
